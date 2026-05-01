@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Currency Analytics</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #0f172a, #020617);
+        color: #e2e8f0;
+    }
+
+    header {
+        position: relative;
+        padding: 25px;
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+        background: #ffffff0d;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* кнопки в хедере */
+    .auth-buttons {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+    }
+
+    .btn {
+        text-decoration: none;
+        padding: 10px 18px;
+        border-radius: 10px;
+        background: #2563eb;
+        color: white;
+        margin-left: 10px;
+        font-size: 14px;
+        transition: 0.2s;
+    }
+
+    .btn:hover {
+        background: #1d4ed8;
+    }
+
+    .btn-outline {
+        background: transparent;
+        border: 1px solid #2563eb;
+    }
+
+    .btn-outline:hover {
+        background: #2563eb;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .card {
+        background: rgba(30,41,59,0.8);
+        border-radius: 20px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        backdrop-filter: blur(10px);
+    }
+
+    h2 {
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: #94a3b8;
+        line-height: 1.6;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+
+    th, td {
+        padding: 14px;
+        text-align: center;
+    }
+
+    th {
+        background: #1e293b;
+        font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+        background: #020617;
+    }
+
+    tr:hover {
+        background: #1d4ed8;
+        transition: 0.2s;
+    }
+
+    .up {
+        color: #22c55e;
+    }
+
+    .down {
+        color: #ef4444;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .mini-card {
+        background: #1e293b;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        opacity: 0.6;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    💱 Currency Analytics Dashboard
+    <div class="auth-buttons">
+            <a href="login_register/register_window" class="btn">Регистрация</a>
+            <a href="login_register/login_window" class="btn btn-outline">Войти</a>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- 📊 Описание -->
+    <div class="card">
+        <h2>About This Platform</h2>
+        <p>
+            This currency dashboard provides a simple overview of global exchange rates.
+            You can monitor trends, compare currencies, and track market changes in real time.
+            Designed for traders, developers, and everyday users.
+        </p>
+    </div>
+
+    <!-- 💹 Основная таблица -->
+    <div class="card">
+
+        <h2>Live Exchange Rates</h2>
+        <form method="POST" action="{% url 'start_timer' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn">начать смотреть курс валюты по процентами</button>
+        </form>
+        <form method="POST" action="{% url 'stop' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn">СТОП</button>
+        </form>
+
+        <table>
+            <tr>
+                <th>Currency</th>
+                <th>Rate (USD)</th>
+                <th>24h Change</th>
+            </tr>
+
+            <tr>
+                <td>USD </td>
+                <td>1 USD in ILS {{ usdd }}</td>
+                <td class="up">00.0%</td>
+            </tr>
+
+            <tr>
+                <td>EUR </td>
+                <td>1 EUR in ILS {{ EUR }}</td>
+                <td class="down">{{ change_eur|floatformat:2 }}</td>
+            </tr>
+
+            <tr>
+                <td>GBP </td>
+                <td>1 GBP in ILS {{ GBP }}</td>
+                <td class="up">{{ change_ils|floatformat:2 }}</td>
+            </tr>
+
+            <tr>
+                <td>JPY </td>
+                <td>1 USD in ILS {{ JPY }}</td>
+                <td class="down">{{ change_gbp|floatformat:2 }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 🧩 Карточки -->
+    <div class="grid">
+        <div class="mini-card">
+            <h3>💰 Total Markets</h3>
+            <p>120+ currencies tracked globally</p>
+        </div>
+
+        <div class="mini-card">
+            <h3>📊 Data Updates</h3>
+            <p>Every 5 minutes (simulated)</p>
+        </div>
+
+        <div class="mini-card">
+            <h3>🌍 Regions</h3>
+            <p>USA, Europe, Asia, Middle East</p>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Currency Analytics | Built with Django
+</footer>
+
+</body>
+</html>
