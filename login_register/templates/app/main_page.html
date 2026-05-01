@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -150,9 +153,44 @@
             <button type="submit" class="btn" style="margin-top:15px;">Обменять</button>
             <p>{{ your_number }}</p>
         </form>
-
         
 
+
+<form method="POST" action="{% url 'chart_usd' %}">
+    {% csrf_token %}
+    {% if chart1 %}
+        <img src="data:image/png;base64,{{ chart1 }}" style="width: 100%; max-width: 600px; border-radius: 10px;">
+    {% endif %}
+    <button type="submit" class="btn" style="margin-top:15px;">chart_usd see</button>
+</form>
+
+<form method="POST" action="{% url 'chart_eur' %}">
+    {% csrf_token %}
+
+    {% if chart2 %}
+        <img src="data:image/png;base64,{{ chart2 }}" style="width: 100%; max-width: 600px; border-radius: 10px;">
+    {% endif %}
+    <button type="submit" class="btn" style="margin-top:15px;">chart_eur see</button>
+</form>
+
+<form method="POST" action="{% url 'chart_gbp' %}">
+    {% csrf_token %}
+
+    {% if chart3 %}
+        <img src="data:image/png;base64,{{ chart3 }}" style="width: 100%; max-width: 600px; border-radius: 10px;">
+    {% endif %}
+    <button type="submit" class="btn" style="margin-top:15px;">chart_gbp see</button>
+</form>
+
+<form method="POST" action="{% url 'chart_jpy' %}">
+    {% csrf_token %}
+
+    {% if chart4 %}
+        <img src="data:image/png;base64,{{ chart4 }}" style="width: 100%; max-width: 600px; border-radius: 10px;">
+    {% endif %}
+
+    <button type="submit" class="btn" style="margin-top:15px;">chart_jpy see</button>
+</form>
     </div>
 
     <!-- 📊 Курсы -->
@@ -174,8 +212,19 @@
             {% endfor %}
         </table>
     </div>
+    
+<form method="POST" action="{% url 'msg_for_usd' %}">
+    {% csrf_token %}
+
+    <input  name="number_you_want_see" placeholder="напишите на сколько должно поднятся/опустится USD" required>
+    <button type="submit" class="btn" style="margin-top:15px;">Start usd timer</button>
+</form>
+
+
+
 
     
 
 </body>
 </html>
+
